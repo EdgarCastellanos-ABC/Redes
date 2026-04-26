@@ -19,7 +19,7 @@ COPY . .
 
 RUN mkdir -p bootstrap/cache storage/framework/sessions storage/framework/views storage/framework/cache storage/logs \
     && chmod -R 775 bootstrap/cache storage \
-    && cp .env.example .env \
+    && echo "APP_NAME=Redes\nAPP_ENV=production\nAPP_KEY=\nAPP_DEBUG=false\nAPP_URL=http://localhost\nDB_CONNECTION=mysql" > .env \
     && npm run build
 
 EXPOSE 8000
