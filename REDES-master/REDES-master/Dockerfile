@@ -17,7 +17,9 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build \
+RUN mkdir -p bootstrap/cache storage/framework/sessions storage/framework/views storage/framework/cache storage/logs \
+    && chmod -R 775 bootstrap/cache storage \
+    && npm run build \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
