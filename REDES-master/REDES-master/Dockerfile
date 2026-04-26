@@ -18,12 +18,10 @@ RUN npm install
 COPY . .
 
 RUN mkdir -p bootstrap/cache storage/framework/sessions storage/framework/views storage/framework/cache storage/logs \
-    && chmod -R 775 bootstrap/cache storage \
-    && npm run build \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+    && chmod -R 775 bootstrap/cache storage
+
+RUN npm run build
 
 EXPOSE 8000
 
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
+CMD php artisan key:generate && php artisan config:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
